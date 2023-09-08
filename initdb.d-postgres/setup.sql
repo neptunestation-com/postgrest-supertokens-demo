@@ -15,8 +15,8 @@ create table public.param (
 create or replace view resource as
   select
     oid,
-    ((obj_description(oid, 'pg_largeobject'::name))::jsonb ->> 'name'::text) as slug,
-    (encode(lo_get(oid), 'escape'::text))::xml as content
+    ((obj_description(oid, 'pg_largeobject'::name))::jsonb ->> 'name') as slug,
+    encode(lo_get(oid), 'escape') as content
     from pg_largeobject_metadata
    where true
      and obj_description(oid, 'pg_largeobject'::name)::jsonb->>'content-type' not in ('image/jpeg');
@@ -28,41 +28,47 @@ create or replace function index ()
 as $function$
   select
   xslt_process(
-  xmlroot(
-    xmlconcat(
-      xmlpi(
-        name "xml-stylesheet",
-        format('href="%s" type="text/xsl"', (select val from public.param where name = 'xml-stylesheet'))),
-        xmlelement(
-          name index,
+    xmlroot(
+      xmlconcat(
+        xmlpi(
+          name "xml-stylesheet",
+          format('href="%s" type="text/xsl"', (select val from public.param where name = 'xml-stylesheet'))),
           xmlelement(
-            name request,
+            name index,
             xmlelement(
-              name headers,
-              current_setting('request.headers', true)::json
+              name request,
+              xmlelement(
+                name headers,
+                current_setting('request.headers', true)::json
+              ),
+              xmlelement(
+                name claims,
+                current_setting('request.jwt.claims', true)::json
+              ),
+              xmlelement(
+                name cookies,
+                current_setting('request.cookies', true)::json
+              ),
+              xmlelement(
+                name path,
+                current_setting('request.path', true)
+              ),
+              xmlelement(
+                name method,
+                current_setting('request.method', true)
+              )
             ),
             xmlelement(
-              name claims,
-              current_setting('request.jwt.claims', true)::json
-            ),
-            xmlelement(
-              name cookies,
-              current_setting('request.cookies', true)::json
-            ),
-            xmlelement(
-              name path,
-              current_setting('request.path', true)
-            ),
-            xmlelement(
-              name method,
-              current_setting('request.method', true)
+              name loginurl,
+              current_setting('custom.loginurl', true)
             )
-          ),
-          xmlelement(
-            name loginurl,
-            current_setting('custom.loginurl', true)
           )
-        )), version '1.0', standalone yes)::text, content::text)
+      ),
+      version '1.0',
+      standalone yes
+    )::text,
+    content::text
+  )
   from resource where slug = 'demo.xsl';
   $function$;
 
