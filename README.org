@@ -21,9 +21,9 @@ This project uses a [[file:docker-compose.yaml][docker-compose.yaml]] file to la
 It sets up the database with [[file:initdb.d-postgres/setup.sql][setup.sql]] which does a few things:
 
 1. Create the ~anonymous~ and ~authenticator~ database roles as per
-   the PostGREST documentation on [[authentication]].
+   the PostgREST documentation on [[authentication]].
 2. Create the [[https://www.postgresql.org/docs/current/xml2.html][xml2]] extensions to enable easy templating in the
-   database (analagous to but still quite different from [[https://www.php.net/][php]] or
+   database (analogous to but still quite different from [[https://www.php.net/][php]] or
    [[https://dotnet.microsoft.com/en-us/apps/aspnet][ASP.NET]], instead using [[https://www.w3.org/TR/xslt20/][XSLT]].
 3. Create a ~resource~ view to make it easier to work with [[https://www.postgresql.org/docs/current/largeobjects.html][Large Objects]]
    in the database as resource files (like stylesheets).
