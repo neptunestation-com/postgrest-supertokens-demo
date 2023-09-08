@@ -41,20 +41,30 @@ as $function$
 						name request,
 						xmlelement(
 							name headers,
-							current_setting('request.headers', true)::json),
-							xmlelement(
-								name claims,
-								current_setting('request.jwt.claims', true)::json),
-								xmlelement(
-									name cookies,
-									current_setting('request.cookies', true)::json),
-									xmlelement(
-										name path,
-										current_setting('request.path', true)),
-										xmlelement(
-											name method,
-											current_setting('request.method', true))
-					))), version '1.0', standalone yes)::text, content::text)
+							current_setting('request.headers', true)::json
+						),
+						xmlelement(
+							name claims,
+							current_setting('request.jwt.claims', true)::json
+						),
+						xmlelement(
+							name cookies,
+							current_setting('request.cookies', true)::json
+						),
+						xmlelement(
+							name path,
+							current_setting('request.path', true)
+						),
+						xmlelement(
+							name method,
+							current_setting('request.method', true)
+						)
+					),
+					xmlelement(
+						name loginurl,
+						current_setting('custom.loginurl', true)
+					)
+				)), version '1.0', standalone yes)::text, content::text)
 	from resource where slug = 'demo.xsl';
 	$function$;
 
@@ -65,3 +75,18 @@ grant select on all tables in schema public to anonymous;
 grant usage on schema core, public to anonymous;
 
 notify pgrst, 'reload schema';
+
+\lo_import /docker-entrypoint-initdb.d/demo.xsl '{"name": "demo.xsl", "content-type": "application/xslt+xml"}'
+
+do $$
+declare
+	grant_statement text;
+begin
+	for grant_statement in select format('grant select on large object %s to anonymous', oid) from pg_largeobject_metadata loop
+		raise notice 'performing grant: %', grant_statement;
+		execute grant_statement;
+	end loop;
+end;
+$$;
+
+insert into core.param (name, val) values ('xml-stylesheet', '/resource/demo.xsl');

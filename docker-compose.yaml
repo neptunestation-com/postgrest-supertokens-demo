@@ -1,7 +1,8 @@
 version: '3'
 services:
-  db:
+  postgres:
     image: postgres
+    command: postgres -c "custom.loginurl=${LOGIN_URL}"
     ports:
       - "${PGPORT}:5432"
     volumes:
@@ -10,14 +11,14 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-  server:
+  postgrest:
     image: postgrest/postgrest
     depends_on:
-      - db
+      - postgres
     ports:
       - "${PGRST_SERVER_PORT}:3000"
     environment:
       PGRST_DB_ANON_ROLE: "anonymous"
-      PGRST_DB_URI: "postgres://postgres:postgres@db:5432/postgres"
+      PGRST_DB_URI: "postgres://postgres:postgres@postgres:5432/postgres"
       PGRST_OPENAPI_SERVER_PROXY_URI: "http://127.0.0.1:3000"
       PGRST_RAW_MEDIA_TYPES: "application/xml,text/css,image/jpeg,image/png,text/html"
