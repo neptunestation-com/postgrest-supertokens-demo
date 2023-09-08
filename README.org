@@ -1,0 +1,21 @@
+* What
+
+This project demonstrates using PostgREST with Auth0.
+
+* Why
+
+Because it's complicated.
+
+* How
+
+It uses Docker Compose, PostgreSQL, PostgREST, and Auth0.
+
+* Steps
+
+** Step 1:  Check out the GitHub repository.
+
+** Step 2:  Set environment variables.
+
+** Step 3:  Launch the services with Docker Compose.
+
+** Step 4:  Go to the index page.
