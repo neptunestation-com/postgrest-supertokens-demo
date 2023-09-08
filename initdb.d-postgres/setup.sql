@@ -4,11 +4,9 @@ create role anonymous with nosuperuser inherit nocreaterole nocreatedb nologin n
 
 create role authenticator with nosuperuser noinherit nocreaterole nocreatedb nologin noreplication nobypassrls;
 
-create schema if not exists core;
-
 create extension if not exists xml2 with schema public;
 
-create table core.param (
+create table public.param (
     id integer primary key generated always as identity,
     name text unique,
     val text
@@ -34,7 +32,7 @@ as $function$
     xmlconcat(
       xmlpi(
         name "xml-stylesheet",
-        format('href="%s" type="text/xsl"', (select val from core.param where name = 'xml-stylesheet'))),
+        format('href="%s" type="text/xsl"', (select val from public.param where name = 'xml-stylesheet'))),
         xmlelement(
           name index,
           xmlelement(
@@ -68,11 +66,7 @@ as $function$
   from resource where slug = 'demo.xsl';
   $function$;
 
-grant select on all tables in schema core to anonymous;
-
 grant select on all tables in schema public to anonymous;
-
-grant usage on schema core, public to anonymous;
 
 notify pgrst, 'reload schema';
 
@@ -89,4 +83,4 @@ begin
 end;
 $$;
 
-insert into core.param (name, val) values ('xml-stylesheet', '/resource/demo.xsl');
+insert into public.param (name, val) values ('xml-stylesheet', '/resource/demo.xsl');
