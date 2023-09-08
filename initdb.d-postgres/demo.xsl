@@ -9,9 +9,6 @@
   <xsl:template match="/index">
     <html lang="en">
       <head>
-				<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-				<script src="https://unpkg.com/htmx.org@1.8.4" />
-				<link href="/resource/beer.css" rel="stylesheet" />
 				<title>PostgREST / Auth0 Demo</title>
       </head>
       <body>

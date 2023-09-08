@@ -2,7 +2,7 @@ version: '3'
 services:
   postgres:
     image: postgres
-    command: postgres -c "custom.loginurl=${LOGIN_URL}"
+    command: postgres -c "custom.loginurl=${LOGINURL}"
     ports:
       - "${PGPORT}:5432"
     volumes:
