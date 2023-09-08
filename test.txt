@@ -11,6 +11,9 @@ Accept:  text/css,application/xml
 GET http://:PGHOST:PGRST_SERVER_PORT/rpc/index
 Accept:  text/html
 
+#
+GET https://dev-5nectqauhb53peug.us.auth0.com/.well-known/jwks.json
+
 
 
 

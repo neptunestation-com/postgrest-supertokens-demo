@@ -11,3 +11,4 @@ stage.bash
 scratch*.*
 
 .dir-locals.el
+initdb.d-postgres/rsa.jwk.pub

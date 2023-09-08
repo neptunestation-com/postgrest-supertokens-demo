@@ -61,9 +61,20 @@ There are a variety of ways to do this.  One way is just to create a
   export PGDATABASE=<a PostgreSQL database e.g. postgres>
   export PGPORT=<an available database port e.g. 5433> 
   export PGHOST=<database host e.g. localhost>
+  export PGRST_JWT_AUD=<audience "aud" which for Auth0 is the Application Client ID>
   EOF
   source setenv.bash
 #+end_src
+
+** Step 3:  Retrieve the Auth0 JWKS for your tenant.
+
+For example:
+
+#+begin_src bash
+  wget -O ./initdb.d-postgres/rsa.jwk.pub https://dev-5nectqauhb53peug.us.auth0.com/.well-known/jwks.json
+#+end_src
+
+#+RESULTS:
 
 ** Step 3:  Launch the services with Docker Compose.
 

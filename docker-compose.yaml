@@ -8,9 +8,11 @@ services:
     volumes:
       - "./initdb.d-postgres:/docker-entrypoint-initdb.d:ro"
     environment:
+      PGRST_JWT_AUD: "${PGRST_JWT_AUD}"
+      PGRST_JWT_SECRET: "/docker-entrypoint-initdb.d/rsa.jwk.pub"
       POSTGRES_DB: "${PGDATABASE}"
+      POSTGRES_PASSWORD: "${PGPASSWORD}"
       POSTGRES_USER: "${PGUSER}"
-      POSTGRES_PASSWORD: "{PGPASSWORD}"
   postgrest:
     image: postgrest/postgrest
     depends_on:
