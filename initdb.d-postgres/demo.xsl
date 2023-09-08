@@ -9,19 +9,19 @@
   <xsl:template match="/index">
     <html lang="en">
       <head>
-				<title>PostgREST / Auth0 Demo</title>
+        <title>PostgREST / Auth0 Demo</title>
       </head>
       <body>
-				<h1>PostgREST / Auth0 Demo</h1>
-				<a href="{/index/loginurl}">Login</a>
-				<dl>
-					<dt>headers</dt><dd><xsl:value-of select="/index/request/headers"/></dd>
-					<dt>claims</dt><dd><xsl:value-of select="/index/request/claims"/></dd>
-					<dt>cookies</dt><dd><xsl:value-of select="/index/request/cookies"/></dd>
-					<dt>paths</dt><dd><xsl:value-of select="/index/request/paths"/></dd>
-					<dt>method</dt><dd><xsl:value-of select="/index/request/method"/></dd>
-					<dt>loginurl</dt><dd><xsl:value-of select="/index/loginurl"/></dd>
-				</dl>
+        <h1>PostgREST / Auth0 Demo</h1>
+        <a href="{/index/loginurl}">Login</a>
+        <dl>
+          <dt>headers</dt><dd><xsl:value-of select="/index/request/headers"/></dd>
+          <dt>claims</dt><dd><xsl:value-of select="/index/request/claims"/></dd>
+          <dt>cookies</dt><dd><xsl:value-of select="/index/request/cookies"/></dd>
+          <dt>paths</dt><dd><xsl:value-of select="/index/request/paths"/></dd>
+          <dt>method</dt><dd><xsl:value-of select="/index/request/method"/></dd>
+          <dt>loginurl</dt><dd><xsl:value-of select="/index/loginurl"/></dd>
+        </dl>
       </body>
     </html>
   </xsl:template>
