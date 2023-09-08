@@ -1,0 +1,19 @@
+# -*- mode: restclient; -*-
+
+:PGHOST := (getenv "PGHOST")
+:PGRST_SERVER_PORT := (getenv "PGRST_SERVER_PORT")
+
+#
+GET http://:PGHOST:PGRST_SERVER_PORT/resource?slug=eq.demo.xsl&select=content::text
+Accept:  text/css,application/xml
+
+#
+GET http://:PGHOST:PGRST_SERVER_PORT/rpc/index
+Accept:  text/html
+
+
+
+
+
+
+

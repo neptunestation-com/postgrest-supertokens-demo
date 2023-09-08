@@ -1,0 +1,13 @@
+*.csv
+scratch.*
+secrets.*
+supabase/init.sql
+init_stage.sql
+init_prod.sql
+init_dev.sql
+*.env
+dev.bash
+stage.bash
+scratch*.*
+
+.dir-locals.el
