@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: "${PGPASSWORD}"
       POSTGRES_USER: "${PGUSER}"
   postgrest:
-    image: postgrest/postgrest
+    image: postgrest/postgrest:v12.0.2
     depends_on:
       - postgres
     ports:
@@ -23,4 +23,3 @@ services:
       PGRST_DB_ANON_ROLE: "anonymous"
       PGRST_DB_URI: "postgres://${PGUSER}:${PGPASSWORD}@postgres:5432/${PGDATABASE}"
       PGRST_OPENAPI_SERVER_PROXY_URI: "http://127.0.0.1:3000"
-      PGRST_RAW_MEDIA_TYPES: "application/xml,text/css,image/jpeg,image/png,text/html"
