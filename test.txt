@@ -4,19 +4,13 @@
 :PGRST_SERVER_PORT := (getenv "PGRST_SERVER_PORT")
 
 #
-GET http://:PGHOST:PGRST_SERVER_PORT/resource?slug=eq.demo.xsl&select=content::text
+GET http://:PGHOST::PGRST_SERVER_PORT/resource?slug=eq.demo.xsl&select=content::text
 Accept:  text/css,application/xml
 
 #
-GET http://:PGHOST:PGRST_SERVER_PORT/rpc/index
+GET http://:PGHOST::PGRST_SERVER_PORT/rpc/index
 Accept:  text/html
 
 #
-GET https://dev-5nectqauhb53peug.us.auth0.com/.well-known/jwks.json
-
-
-
-
-
-
-
+GET http://:PGHOST::PGRST_SERVER_PORT/rpc/index
+Accept:  text/html
