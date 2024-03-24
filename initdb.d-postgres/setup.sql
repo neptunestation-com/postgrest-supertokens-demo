@@ -21,8 +21,10 @@ create or replace view resource as
    where true
      and obj_description(oid, 'pg_largeobject'::name)::jsonb->>'content-type' not in ('image/jpeg');
 
+create domain "text/html" as text;
+
 create or replace function index ()
-  returns text
+  returns "text/html"
   language sql
   stable parallel safe
 as $function$
