@@ -1,15 +1,10 @@
+#+STARTUP: indent
+
 * What
 
-This project demonstrates using [[https://postgrest.org][PostgREST]] with [[https://auth0.com/][Auth0]].
+This project demonstrates using [[https://postgrest.org][PostgREST]] with [[https://supertokens.com/][SuperTokens]].
 
 * Why
-
-Auth0 offers [[https://auth0.com/docs/get-started/auth0-overview/create-applications/regular-web-apps][Regular Web Applications]] as a category of application,
-and has [[https://auth0.com/docs/quickstart/webapp][Quickstarts]] available for many back-end technologies.
-Unfortunately, PostgREST is not one of them.  This project is an arena
-for exploring, developing, and demonstrating how Auth0 can be
-integrated with traditional web app that runs on a server, where that
-server is PostgREST.
 
 * How
 
@@ -34,11 +29,6 @@ It sets up the database with [[file:initdb.d-postgres/setup.sql][setup.sql]] whi
 5. Loads an XSLT stylesheet [[file:initdb.d-postgres/demo.xsl][demo.xsl]] as a Large Object to be used to
    generate the "index.html" page described above.
 
-The goal is for the "index.html" page to have a "Login" link to the
-[[https://auth0.com/docs/authenticate/login/auth0-universal-login][Auth0 Universal Login]] and also to show by way of diagnostics the
-PostgREST [[https://postgrest.org/en/stable/references/transactions.html?highlight=request.cookies#request-headers-cookies-and-jwt-claims][Request Headers, Cookies, and JWT claims]] in order to exhibit
-the effect of logging in with Auth0 and obtaining a JWT.
-
 * Steps
 
 ** Step 1:  Check out the GitHub repository [[https://github.com/davidaventimiglia/postgrest-auth0-demo][postgrest-auth0-demo]].
@@ -54,26 +44,14 @@ There are a variety of ways to do this.  One way is just to create a
 
 #+begin_src bash
   cat <<EOF > setenv.bash
-  export LOGINURL=<Auth0 Universal Login URL>
   export PGRST_SERVER_PORT=<an available web port e.g. 3001>
   export PGPASSWORD=<a PostgreSQL password e.g. postgres>
   export PGUSER=<a PostgreSQL user e.g. postgres>
   export PGDATABASE=<a PostgreSQL database e.g. postgres>
   export PGPORT=<an available database port e.g. 5433> 
   export PGHOST=<database host e.g. localhost>
-  export PGRST_JWT_AUD=<audience "aud" which for Auth0 is the Application Client ID>
   EOF
   source setenv.bash
-#+end_src
-
-#+RESULTS:
-
-** Step 3:  Retrieve the Auth0 JWKS for your tenant.
-
-For example:
-
-#+begin_src bash
-  wget -O ./initdb.d-postgres/rsa.jwk.pub https://dev-5nectqauhb53peug.us.auth0.com/.well-known/jwks.json
 #+end_src
 
 #+RESULTS:
